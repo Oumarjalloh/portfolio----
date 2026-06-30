@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alpha Oumar Diallo — Software & Data Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="top" class="shell">
+
+    <!-- ===== Nav ===== -->
+    <nav class="nav">
+      <a href="#top" class="nav-brand">
+        <span class="nav-brand__dots">
+          <span class="nav-brand__dot dot--red"></span>
+          <span class="nav-brand__dot dot--amber"></span>
+          <span class="nav-brand__dot dot--green"></span>
+        </span>
+        <span class="nav-brand__tilde">~/</span><span>Alpha Oumar Diallo</span><span class="nav-brand__dollar">&nbsp;$</span>
+      </a>
+      <div class="nav-actions">
+        <span class="nav-links">
+          <a href="#about" class="nav-link" data-i18n="navAbout"></a>
+          <a href="#stack" class="nav-link" data-i18n="navStack"></a>
+          <a href="#projects" class="nav-link" data-i18n="navProjects"></a>
+          <a href="#education" class="nav-link" data-i18n="navEdu"></a>
+          <a href="#contact" class="nav-link" data-i18n="navContact"></a>
+        </span>
+        <span class="lang-switch">
+          <button type="button" id="lang-fr" class="lang-btn">FR</button>
+          <button type="button" id="lang-en" class="lang-btn">EN</button>
+        </span>
+        <button type="button" id="theme-toggle" class="theme-toggle" aria-label="toggle theme">☀</button>
+      </div>
+    </nav>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="page hero-grid" style="padding-top:0;padding-bottom:0">
+        <div>
+          <div class="hero-kicker" data-i18n="heroKicker"></div>
+          <h1 class="hero-title">Alpha Oumar Diallo</h1>
+          <div class="hero-role" data-i18n="heroRole"></div>
+          <p class="hero-tagline" data-i18n="heroTagline"></p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn--primary"><span data-i18n="heroCta1"></span> <span>→</span></a>
+            <a href="#contact" class="btn btn--ghost" data-i18n="heroCta2"></a>
+          </div>
+          <div class="hero-status">
+            <span class="hero-status-dot"></span><span data-i18n="heroStatus"></span>
+          </div>
+        </div>
+
+        <div class="panel terminal-card">
+          <div class="terminal-bar">
+            <span class="dot dot--red"></span>
+            <span class="dot dot--amber"></span>
+            <span class="dot dot--green"></span>
+            <span class="terminal-title">Alpha Oumar Diallo — zsh</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-green">visitor@portfolio</span><span class="t-faint">:</span><span class="t-purple">~</span><span class="t-faint">$</span> whoami</div>
+            <div class="t-text term-out" data-i18n="whoamiOut"></div>
+            <div><span class="t-green">visitor@portfolio</span><span class="t-faint">:</span><span class="t-purple">~</span><span class="t-faint">$</span> cat stack.txt</div>
+            <div class="t-accent term-out">data-engineering • backend • cloud</div>
+            <div><span class="t-green">visitor@portfolio</span><span class="t-faint">:</span><span class="t-purple">~</span><span class="t-faint">$</span> ./status --now</div>
+            <div class="t-amber term-out" data-i18n="heroStatus"></div>
+            <div><span class="t-green">visitor@portfolio</span><span class="t-faint">:</span><span class="t-purple">~</span><span class="t-faint">$</span> <span class="term-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="about" class="page">
+      <div class="section-title">
+        <div class="section-kicker">// 01 — <span data-i18n="aboutLabel"></span></div>
+        <h2 class="section-heading" data-i18n="aboutHeading"></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-p" data-i18n="aboutP1"></p>
+          <p class="about-p" data-i18n="aboutP2"></p>
+        </div>
+        <div class="facts">
+          <div class="facts-comment">// quick_facts</div>
+          <div><span class="fact-key">location</span><span class="fact-colon">:</span> <span class="fact-val" data-i18n="factLocation"></span></div>
+          <div><span class="fact-key">focus</span><span class="fact-colon">:</span> <span class="fact-val--accent" data-i18n="factFocus"></span></div>
+          <div><span class="fact-key">languages</span><span class="fact-colon">:</span> <span class="fact-val" data-i18n="factLangs"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Stack ===== -->
+    <section id="stack" class="page">
+      <div class="section-title">
+        <div class="section-kicker">// 02 — <span data-i18n="stackLabel"></span></div>
+        <h2 class="section-heading" data-i18n="stackHeading"></h2>
+      </div>
+      <div id="stack-grid" class="stack-grid"></div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects" class="page">
+      <div class="section-title">
+        <div class="section-kicker">// 03 — <span data-i18n="projectsLabel"></span></div>
+        <h2 class="section-heading" data-i18n="projectsHeading"></h2>
+      </div>
+      <div id="projects-grid" class="projects-grid"></div>
+    </section>
+
+    <!-- ===== Education ===== -->
+    <section id="education" class="page">
+      <div class="section-title">
+        <div class="section-kicker">// 04 — <span data-i18n="eduLabel"></span></div>
+        <h2 class="section-heading" data-i18n="eduHeading"></h2>
+      </div>
+      <div id="education-timeline" class="timeline"></div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact" class="page page--tight contact-section">
+      <div class="section-kicker" style="margin-bottom:9px">// 05 — <span data-i18n="contactLabel"></span></div>
+      <h2 class="section-heading section-heading--large" data-i18n="contactHeading"></h2>
+      <p class="contact-p" data-i18n="contactP"></p>
+      <div class="contact-card">
+        <div class="terminal-bar">
+          <span class="dot dot--red"></span>
+          <span class="dot dot--amber"></span>
+          <span class="dot dot--green"></span>
+        </div>
+        <div class="contact-body">
+          <div><span class="t-green">visitor@portfolio</span><span class="t-faint">:</span><span class="t-purple">~</span><span class="t-faint">$</span> ./contact.sh</div>
+          <div class="contact-row"><span class="contact-label">email&nbsp;&nbsp;&nbsp;</span> <a href="mailto:ojalloh38@gmail.com">ojalloh38@gmail.com</a></div>
+          <div class="contact-row"><span class="contact-label">github&nbsp;&nbsp;</span> <a href="https://github.com/Oumarjalloh" target="_blank" rel="noopener">github.com/Oumarjalloh</a></div>
+          <div class="contact-row"><span class="contact-label">linkedin</span> <a href="https://www.linkedin.com/in/alpha-oumar-diallo-35835a254/" target="_blank" rel="noopener">linkedin.com/in/alpha-oumar-diallo</a></div>
+        </div>
+      </div>
+      <a href="mailto:ojalloh38@gmail.com" class="btn btn--primary contact-cta"><span data-i18n="contactCta"></span> <span>→</span></a>
+    </section>
+
+    <footer class="footer" data-i18n="footer"></footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
