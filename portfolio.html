@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alpha Oumar Diallo — Software & Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0}
+  a,button{transition:color .2s,background-color .2s,border-color .2s,transform .2s}
+  a:hover{color:var(--accent,#5eead4)}
+  [data-hero-actions] a:hover{transform:translateY(-2px)}
+  .shell{min-height:100vh;font-family:'JetBrains Mono',ui-monospace,monospace;transition:background .35s ease,color .35s ease;-webkit-font-smoothing:antialiased;line-height:1.6}
+  .page{max-width:1120px;margin:0 auto;padding:70px 28px;scroll-margin-top:70px}
+  .page--tight{max-width:880px;padding:70px 28px 90px}
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 28px;background:var(--bg,#0b0f17);border-bottom:1px solid var(--border,#232c3a);backdrop-filter:blur(10px);font-size:13px}
+  .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text,#e6edf3);font-weight:500}
+  .nav-brand__dots{display:flex;gap:6px;align-items:center}
+  .nav-brand__dot{width:11px;height:11px;border-radius:50%}
+  .nav-link{display:inline-block;text-decoration:none;color:var(--dim,#9aa6b6);transition:color .2s}
+  .nav-actions{display:flex;align-items:center;gap:18px;font-size:13px}
+  .lang-switch{display:flex;border:1px solid var(--border,#232c3a);border-radius:8px;padding:2px;gap:2px}
+  .lang-btn{appearance:none;border:none;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;padding:5px 11px;border-radius:6px;background:transparent;color:var(--dim,#9aa6b6);transition:all .2s}
+  .lang-btn--active{background:var(--accent,#5eead4);color:var(--on-accent,#06120f);font-weight:700}
+  .theme-toggle{appearance:none;cursor:pointer;width:34px;height:34px;border-radius:8px;border:1px solid var(--border,#232c3a);background:var(--bg-elev,#10151f);color:var(--text,#e6edf3);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .hero-bg{position:absolute;inset:0;background-image:radial-gradient(var(--border,#232c3a) 1px,transparent 1px);background-size:30px 30px;opacity:.45;mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000,transparent);-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000,transparent);pointer-events:none}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+  .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:14px;padding:11px 20px;border-radius:9px;transition:all .2s}
+  .btn--primary{font-weight:600;background:var(--accent,#5eead4);color:var(--on-accent,#06120f)}
+  .btn--ghost{font-weight:500;background:transparent;color:var(--text,#e6edf3);border:1px solid var(--border,#232c3a)}
+  .panel{border:1px solid var(--border,#232c3a);border-radius:12px;background:var(--codebg,#0c1119)}
+  .terminal-card{overflow:hidden;box-shadow:0 24px 60px -28px rgba(0,0,0,.5)}
+  .terminal-bar{display:flex;align-items:center;gap:8px;padding:12px 15px;background:var(--bg-elev,#10151f);border-bottom:1px solid var(--border,#232c3a)}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot--red{background:var(--red,#ff7b72)}
+  .dot--amber{background:var(--amber,#f0b860)}
+  .dot--green{background:var(--green,#7ee787)}
+  .section-title{margin-bottom:38px}
+  .section-kicker{font-size:13px;color:var(--accent,#5eead4);letter-spacing:.05em}
+  .section-heading{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,40px);font-weight:600;margin:9px 0 0;letter-spacing:-.01em}
+  .section-heading--large{font-size:clamp(30px,5vw,48px);font-weight:700;margin:0 0 16px;letter-spacing:-.015em}
+  .stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{border:1px solid var(--border,#232c3a);border-radius:12px;background:var(--bg-elev,#10151f)}
+  .card:hover{border-color:var(--accent,#5eead4)}
+  .project-card{display:flex;flex-direction:column;border:1px solid var(--border,#232c3a);border-radius:14px;background:var(--bg-elev,#10151f);padding:26px;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+  .project-card:hover{transform:translateY(-5px);border-color:var(--accent,#5eead4);box-shadow:0 20px 44px -26px rgba(0,0,0,.55)}
+  .pill{font-size:12.5px;padding:5px 11px;border-radius:7px;background:var(--bg-elev2,#171f2e);border:1px solid var(--border,#232c3a);color:var(--dim,#9aa6b6)}
+  .timeline{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--border,#232c3a);padding-left:24px}
+  .timeline-item{position:relative;padding-bottom:26px}
+  .timeline-dot{position:absolute;left:-31px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--accent,#5eead4);border:3px solid var(--bg,#0b0f17)}
+  .contact-card{border:1px solid var(--border,#232c3a);border-radius:13px;background:var(--codebg,#0c1119);overflow:hidden;margin-bottom:34px}
+  .footer{border-top:1px solid var(--border,#232c3a);padding:26px;text-align:center;font-size:12px;color:var(--faint,#5b6675)}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  ::selection{background:rgba(94,234,212,.28)}
+  @media (max-width:960px){
+    .hero-grid,[data-two-col]{grid-template-columns:1fr !important;gap:32px !important}
+    [data-nav-links]{display:none !important}
+  }
+  @media (max-width:780px){
+    [data-sec]{padding-left:20px !important;padding-right:20px !important;padding-top:56px !important;padding-bottom:56px !important}
+    .nav{padding:14px 18px !important;flex-wrap:wrap !important;gap:12px !important}
+    .nav-actions{width:100% !important;justify-content:space-between !important;flex-wrap:wrap !important}
+    .hero-actions{flex-direction:column !important;align-items:stretch !important}
+    .hero-actions a{width:100% !important;justify-content:center !important}
+    [data-terminal-card]{padding:16px 14px !important}
+    [data-terminal-card] div{font-size:12px !important;line-height:1.7 !important;word-break:break-word !important}
+  }
+  @media (max-width:560px){
+    .nav{padding-left:16px !important;padding-right:16px !important}
+    .nav-actions{gap:10px !important}
+    .nav-actions > span:last-child{width:100% !important;justify-content:flex-end !important}
+    [data-sec]{padding-left:16px !important;padding-right:16px !important}
+    h1{font-size:clamp(32px,10vw,44px) !important}
+    h2{font-size:clamp(24px,8vw,32px) !important}
+    [data-terminal-card] .terminal-bar{padding:10px 12px !important}
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+"use strict";
+const e = React.createElement;
+const { useState, useMemo } = React;
+
+const ACCENT = "#5eead4";
+
+function h2r(h) {
+  h = h.replace("#", "");
+  if (h.length === 3) h = h.split("").map(x => x + x).join("");
+  return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+}
+function mix(a, b, t) {
+  const x = h2r(a), y = h2r(b);
+  const r = Math.round(x[0] + (y[0] - x[0]) * t);
+  const g = Math.round(x[1] + (y[1] - x[1]) * t);
+  const bl = Math.round(x[2] + (y[2] - x[2]) * t);
+  return "rgb(" + r + "," + g + "," + bl + ")";
+}
+
+const STR = {
+  en: {
+    navAbout: "about", navStack: "stack", navProjects: "projects", navEdu: "education", navContact: "contact",
+    heroKicker: "> software & data engineer", heroRole: "Software & Data Engineer",
+    heroTagline: "I build reliable data pipelines and scalable backend systems that turn raw data into products people can trust.",
+    heroCta1: "View projects", heroCta2: "Get in touch", heroStatus: "available for new projects",
+    aboutLabel: "about", aboutHeading: "whoami",
+    aboutP1: "Software & Data Engineering student looking for an apprenticeship to design end-to-end solutions, from the data pipeline all the way to the web interface.",
+    aboutP2: "On the data/AI side: ETL pipelines, relational and NoSQL databases, distributed processing with Spark, machine learning models and containerised deployment (Docker). On the development side: performant frontend and full-stack web apps. Schedule: 3 weeks company / 1 week school. Available immediately.",
+    factLocation: "Paris, France", factFocus: "Data Eng · Backend", factLangs: "FR / EN",
+    stackLabel: "stack", stackHeading: "tech I work with",
+    projectsLabel: "projects", projectsHeading: "selected work",
+    linkCode: "code", linkLive: "live",
+    eduLabel: "education", eduHeading: "background",
+    contactLabel: "contact", contactHeading: "Let's build something",
+    contactP: "Open to data engineering and backend roles, freelance work and interesting collaborations. The fastest way to reach me is email.",
+    contactCta: "Send a message",
+    footer: "Built with care · © " + new Date().getFullYear() + " Alpha Oumar Diallo"
+  },
+  fr: {
+    navAbout: "à propos", navStack: "stack", navProjects: "projets", navEdu: "formation", navContact: "contact",
+    heroKicker: "> ingénieur logiciel & data", heroRole: "Ingénieur Logiciel & Data",
+    heroTagline: "Je conçois des pipelines de données fiables et des systèmes backend scalables qui transforment la donnée brute en produits de confiance.",
+    heroCta1: "Voir les projets", heroCta2: "Me contacter", heroStatus: "disponible pour de nouveaux projets",
+    aboutLabel: "à propos", aboutHeading: "whoami",
+    aboutP1: "Étudiant en cycle Ingénieur Logiciel & Data Engineering, je recherche une alternance pour concevoir des solutions de bout en bout, du pipeline de données jusqu'à l'interface web.",
+    aboutP2: "Côté data/IA : pipelines ETL, bases relationnelles et NoSQL, traitement distribué avec Spark, modèles de machine learning et déploiement conteneurisé (Docker). Côté développement : applications web frontend et full stack performantes. Rythme : 3 semaines entreprise / 1 semaine école. Disponible immédiatement.",
+    factLocation: "Paris, France", factFocus: "Data Eng · Backend", factLangs: "FR / EN",
+    stackLabel: "stack", stackHeading: "technologies que j'utilise",
+    projectsLabel: "projets", projectsHeading: "projets sélectionnés",
+    linkCode: "code", linkLive: "démo",
+    eduLabel: "formation", eduHeading: "parcours",
+    contactLabel: "contact", contactHeading: "Construisons ensemble",
+    contactP: "Ouvert aux postes en data engineering et backend, au freelance et aux collaborations intéressantes. Le plus simple pour me joindre reste l'email.",
+    contactCta: "Envoyer un message",
+    footer: "Conçu avec soin · © " + new Date().getFullYear() + " Alpha Oumar Diallo"
+  }
+};
+
+function buildStack(fr) {
+  return [
+    { n: "01", title: fr ? "Langages" : "Languages", items: ["HTML", "CSS", "JavaScript", "Python", "SQL"] },
+    { n: "02", title: "Frontend", items: ["React.js", "Vue.js", "Angular", "Tailwind CSS"] },
+    { n: "03", title: fr ? "Backend / API" : "Backend / API", items: ["Node.js", "FastAPI", "Flask"] },
+    { n: "04", title: fr ? "Data & Machine Learning" : "Data & Machine Learning", items: ["ETL", "pandas", "NumPy", "scikit-learn", "PySpark", "TensorFlow/Keras", "PyTorch", "Matplotlib", "Streamlit"] },
+    { n: "05", title: fr ? "Bases de données" : "Databases", items: ["PostgreSQL", "MySQL", "Apache Cassandra", "Parquet", "Access"] },
+    { n: "06", title: "DevOps & Cloud", items: ["Docker", "Docker Compose", "Git", "GitHub", "GitLab", "CI/CD", "AWS", "Vercel", "Netlify"] },
+    { n: "07", title: fr ? "Outils" : "Tools", items: ["Jupyter", "Anaconda", "Power BI", "Excel", "Postman"] }
+  ];
+}
+
+function buildProjects(fr) {
+  return [
+    {
+      n: "01", name: "Feedback Widget",
+      blurb: fr
+        ? "SaaS multi-tenant pour collecter les retours visiteurs : un simple script à intégrer sur n'importe quel site, isolation stricte par projet, clés API et API publique validée par Zod."
+        : "Multi-tenant SaaS for collecting visitor feedback: embed a single script tag on any site, strict per-project isolation, opaque API keys and a Zod-validated public API.",
+      metric: "multi-tenant", metricLabel: "SaaS",
+      tags: ["Next.js 16", "TypeScript", "Prisma 7", "PostgreSQL", "Auth.js"],
+      repo: "https://github.com/Oumarjalloh/feedback-widget", demo: "https://feedback-widget-mu-gray.vercel.app"
+    },
+    {
+      n: "02", name: "Meta Eraser",
+      blurb: fr
+        ? "Application web qui supprime les métadonnées sensibles des images et PDF, entièrement dans le navigateur — aucun serveur, aucune donnée envoyée, tout reste en local."
+        : "Web app that strips sensitive metadata from images and PDFs entirely in the browser — no server, no upload, everything stays on the user's machine.",
+      metric: "100%", metricLabel: fr ? "côté client" : "client-side",
+      tags: ["React", "pdf-lib", "Canvas API", "privacy"],
+      repo: "https://github.com/Oumarjalloh/Suppression-m-ta-donn-e", demo: "https://suppression-m-ta-donn-e.vercel.app/"
+    },
+    {
+      n: "03", name: fr ? "Analyse du Churn Client" : "Customer Churn Analysis",
+      blurb: fr
+        ? "Projet data complet de prédiction du churn télécom : nettoyage, EDA, modèle Random Forest et recommandations business actionnables."
+        : "End-to-end churn prediction for a telecom: data cleaning, EDA, a Random Forest model and actionable business recommendations.",
+      metric: "0.84", metricLabel: "AUC-ROC",
+      tags: ["Python", "Pandas", "Scikit-learn", "Power BI"],
+      repo: "https://github.com/Oumarjalloh/projet-churn-Data-Analyst-", demo: ""
+    },
+    {
+      n: "04", name: fr ? "Forecast Retail & Stock" : "Retail Forecast & Stock",
+      blurb: fr
+        ? "Projet data science end-to-end pour le retail : forecast multi-produits (SARIMAX, LightGBM), backtesting sMAPE/WAPE, reco de stock par service level, API FastAPI et dashboard Streamlit."
+        : "End-to-end retail data science: multi-product forecasting (SARIMAX, LightGBM), sMAPE/WAPE backtesting, service-level stock recommendation, a FastAPI service and a Streamlit dashboard.",
+      metric: "sMAPE", metricLabel: fr ? "backtest" : "backtested",
+      tags: ["LightGBM", "SARIMAX", "FastAPI", "Streamlit"],
+      repo: "https://github.com/Oumarjalloh/retail-forecast-inventory-Data-science", demo: ""
+    },
+    {
+      n: "05", name: fr ? "Détection du cancer pulmonaire" : "Lung Cancer Detection",
+      blurb: fr
+        ? "Système multimodal : un modèle ML sur données cliniques et un CNN sur radiographies thoraciques fusionnés pour prédire le risque de malignité, exposé via une app Streamlit."
+        : "Multimodal system fusing an ML model on clinical data with a CNN on chest X-rays to predict nodule malignancy risk, served through a Streamlit app.",
+      metric: "multimodal", metricLabel: "ML + DL",
+      tags: ["scikit-learn", "TensorFlow", "Keras", "Streamlit"],
+      repo: "https://github.com/Oumarjalloh/D-tection-du-cancer-pulmonaire",
+      demo: "https://d-tection-du-cancer-pulmonaire-ju3uchmstwfzzt9diqnmrh.streamlit.app/?classId=7323a4f6-845a-4c39-b33a-81a56f264577&assignmentId=698b2a31-a6bf-495d-ac0a-4db370481519&submissionId=dd6db9d7-d280-13e6-ee4d-6e11b907402c"
+    }
+  ];
+}
+
+function buildEducation(fr) {
+  return [
+    { period: "2024 — 2027", degree: fr ? "Ingénieur Logiciel & Data Engineering" : "Software & Data Engineering", school: "E.S.I.C, Paris" },
+    { period: "2022 — 2023", degree: fr ? "Prépa Master Full Stack" : "Full Stack Master Prep", school: "IIM Digital School, Paris" },
+    { period: "2019 — 2022", degree: fr ? "Licence Informatique de Gestion" : "B.Sc. Business Computing", school: "EPSIEL, Fès, Maroc" }
+  ];
+}
+
+function termLine(prompt, after) {
+  return e("div", null,
+    e("span", { style: { color: "var(--green,#7ee787)" } }, "visitor@portfolio"),
+    e("span", { style: { color: "var(--faint,#5b6675)" } }, ":"),
+    e("span", { style: { color: "var(--purple,#c4a3ff)" } }, "~"),
+    e("span", { style: { color: "var(--faint,#5b6675)" } }, "$"),
+    " ", prompt, after || null
+  );
+}
+
+function App() {
+  const [theme, setTheme] = useState("dark");
+  const [lang, setLang] = useState("fr");
+  const dark = theme === "dark";
+  const fr = lang === "fr";
+
+  const colors = useMemo(() => {
+    const accent = dark ? ACCENT : mix(ACCENT, "#000000", 0.42);
+    const onAccent = dark ? "#06120f" : "#ffffff";
+    const c = dark ? {
+      bg: "#0b0f17", bgElev: "#10151f", bgElev2: "#171f2e", border: "#232c3a",
+      text: "#e6edf3", dim: "#9aa6b6", faint: "#5b6675",
+      green: "#7ee787", purple: "#c4a3ff", amber: "#f0b860", red: "#ff7b72", codebg: "#0c1119"
+    } : {
+      bg: "#f1f2ef", bgElev: "#ffffff", bgElev2: "#f7f8f5", border: "#e3e6e2",
+      text: "#1b2026", dim: "#5a636e", faint: "#9aa2ac",
+      green: "#1a7f37", purple: "#8250df", amber: "#9a6700", red: "#cf222e", codebg: "#f6f7f4"
+    };
+    return {
+      "--bg": c.bg, "--bg-elev": c.bgElev, "--bg-elev2": c.bgElev2, "--border": c.border,
+      "--text": c.text, "--dim": c.dim, "--faint": c.faint, "--accent": accent,
+      "--green": c.green, "--purple": c.purple, "--amber": c.amber, "--red": c.red,
+      "--codebg": c.codebg, "--on-accent": onAccent
+    };
+  }, [dark]);
+
+  const t = STR[lang];
+  const stack = useMemo(() => buildStack(fr), [fr]);
+  const projects = useMemo(() => buildProjects(fr), [fr]);
+  const education = useMemo(() => buildEducation(fr), [fr]);
+
+  const navLinks = [
+    ["#about", t.navAbout], ["#stack", t.navStack], ["#projects", t.navProjects],
+    ["#education", t.navEdu], ["#contact", t.navContact]
+  ];
+
+  return e("div", { id: "top", className: "shell", style: Object.assign({ background: "var(--bg,#0b0f17)", color: "var(--text,#e6edf3)" }, colors) },
+    e("nav", { className: "nav" },
+      e("a", { href: "#top", className: "nav-brand" },
+        e("span", { className: "nav-brand__dots" },
+          e("span", { className: "nav-brand__dot dot--red" }),
+          e("span", { className: "nav-brand__dot dot--amber" }),
+          e("span", { className: "nav-brand__dot dot--green" })
+        ),
+        e("span", { style: { color: "var(--accent,#5eead4)" } }, "~/"),
+        e("span", null, "Alpha Oumar Diallo"),
+        e("span", { style: { color: "var(--faint,#5b6675)" } }, " $")
+      ),
+      e("div", { className: "nav-actions" },
+        e("span", { "data-nav-links": "", style: { display: "flex", alignItems: "center", gap: 24 } },
+          navLinks.map(([href, label]) => e("a", { key: href, href, className: "nav-link" }, label))
+        ),
+        e("span", { className: "lang-switch" },
+          e("button", { className: "lang-btn" + (fr ? " lang-btn--active" : ""), onClick: () => setLang("fr") }, "FR"),
+          e("button", { className: "lang-btn" + (!fr ? " lang-btn--active" : ""), onClick: () => setLang("en") }, "EN")
+        ),
+        e("button", { className: "theme-toggle", "aria-label": "toggle theme", onClick: () => setTheme(dark ? "light" : "dark") }, dark ? "☀" : "☾")
+      )
+    ),
+
+    e("section", { "data-sec": "", className: "page", style: { position: "relative", padding: "80px 28px 70px" } },
+      e("div", { className: "hero-bg" }),
+      e("div", { className: "hero-grid", style: { position: "relative" } },
+        e("div", null,
+          e("div", { style: { fontSize: 13, color: "var(--accent,#5eead4)", letterSpacing: ".04em", marginBottom: 18 } }, t.heroKicker),
+          e("h1", { style: { fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: "clamp(42px,5.4vw,70px)", lineHeight: 1.02, letterSpacing: "-.02em", margin: "0 0 14px" } }, "Alpha Oumar Diallo"),
+          e("div", { style: { fontFamily: "'Space Grotesk',sans-serif", fontSize: "clamp(18px,2.2vw,24px)", fontWeight: 500, color: "var(--accent,#5eead4)", marginBottom: 20 } }, t.heroRole),
+          e("p", { style: { fontSize: 15, color: "var(--dim,#9aa6b6)", maxWidth: "44ch", margin: "0 0 30px", lineHeight: 1.7 } }, t.heroTagline),
+          e("div", { "data-hero-actions": "", className: "hero-actions" },
+            e("a", { href: "#projects", className: "btn btn--primary" }, t.heroCta1, " ", e("span", null, "→")),
+            e("a", { href: "#contact", className: "btn btn--ghost" }, t.heroCta2)
+          ),
+          e("div", { style: { display: "flex", alignItems: "center", gap: 9, fontSize: 13, color: "var(--dim,#9aa6b6)" } },
+            e("span", { style: { width: 9, height: 9, borderRadius: "50%", background: "var(--green,#7ee787)", animation: "pulse 2.4s ease-in-out infinite" } }),
+            t.heroStatus
+          )
+        ),
+        e("div", { "data-terminal-card": "", className: "panel terminal-card", style: { borderRadius: 13 } },
+          e("div", { className: "terminal-bar" },
+            e("span", { className: "dot dot--red" }),
+            e("span", { className: "dot dot--amber" }),
+            e("span", { className: "dot dot--green" }),
+            e("span", { style: { marginLeft: 8, fontSize: 12, color: "var(--faint,#5b6675)" } }, "Alpha Oumar Diallo — zsh")
+          ),
+          e("div", { style: { padding: "20px 18px", fontSize: 13.5, lineHeight: 1.95 } },
+            termLine("whoami"),
+            e("div", { style: { color: "var(--text,#e6edf3)", marginBottom: 6 } }, "Alpha Oumar Diallo - Ingénieur Logiciel & Data"),
+            termLine("cat stack.txt"),
+            e("div", { style: { color: "var(--accent,#5eead4)", marginBottom: 6 } }, "data-engineering • backend • cloud"),
+            termLine("./status --now"),
+            e("div", { style: { color: "var(--amber,#f0b860)", marginBottom: 6 } }, t.heroStatus),
+            termLine("", e("span", { style: { display: "inline-block", width: 8, height: 16, background: "var(--accent,#5eead4)", verticalAlign: "-3px", animation: "blink 1.1s step-end infinite" } }))
+          )
+        )
+      )
+    ),
+
+    e("section", { id: "about", "data-sec": "", className: "page" },
+      e("div", { className: "section-title" },
+        e("div", { className: "section-kicker" }, "// 01 — " + t.aboutLabel),
+        e("h2", { className: "section-heading" }, t.aboutHeading)
+      ),
+      e("div", { "data-two-col": "", style: { display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 46, alignItems: "start" } },
+        e("div", null,
+          e("p", { style: { fontSize: 15.5, color: "var(--dim,#9aa6b6)", lineHeight: 1.8, margin: "0 0 18px" } }, t.aboutP1),
+          e("p", { style: { fontSize: 15.5, color: "var(--dim,#9aa6b6)", lineHeight: 1.8, margin: 0 } }, t.aboutP2)
+        ),
+        e("div", { style: { border: "1px solid var(--border,#232c3a)", borderRadius: 12, background: "var(--codebg,#0c1119)", padding: "18px 20px", fontSize: 13.5, lineHeight: 2.05 } },
+          e("div", { style: { color: "var(--faint,#5b6675)", marginBottom: 8 } }, "// quick_facts"),
+          e("div", null, e("span", { style: { color: "var(--purple,#c4a3ff)" } }, "location"), e("span", { style: { color: "var(--faint,#5b6675)" } }, ":"), " ", e("span", { style: { color: "var(--text,#e6edf3)" } }, t.factLocation)),
+          e("div", null, e("span", { style: { color: "var(--purple,#c4a3ff)" } }, "focus"), e("span", { style: { color: "var(--faint,#5b6675)" } }, ":"), " ", e("span", { style: { color: "var(--accent,#5eead4)" } }, t.factFocus)),
+          e("div", null, e("span", { style: { color: "var(--purple,#c4a3ff)" } }, "languages"), e("span", { style: { color: "var(--faint,#5b6675)" } }, ":"), " ", e("span", { style: { color: "var(--text,#e6edf3)" } }, t.factLangs))
+        )
+      )
+    ),
+
+    e("section", { id: "stack", "data-sec": "", className: "page" },
+      e("div", { className: "section-title" },
+        e("div", { className: "section-kicker" }, "// 02 — " + t.stackLabel),
+        e("h2", { className: "section-heading" }, t.stackHeading)
+      ),
+      e("div", { className: "stack-grid" },
+        stack.map(g => e("div", { key: g.n, className: "card", style: { padding: 20 } },
+          e("div", { style: { display: "flex", alignItems: "baseline", gap: 8, marginBottom: 15 } },
+            e("span", { style: { color: "var(--accent,#5eead4)", fontSize: 12 } }, g.n),
+            e("span", { style: { fontFamily: "'Space Grotesk',sans-serif", fontSize: 16, fontWeight: 600, color: "var(--text,#e6edf3)" } }, g.title)
+          ),
+          e("div", { style: { display: "flex", flexWrap: "wrap", gap: 8 } },
+            g.items.map(it => e("span", { key: it, className: "pill" }, it))
+          )
+        ))
+      )
+    ),
+
+    e("section", { id: "projects", "data-sec": "", className: "page" },
+      e("div", { className: "section-title" },
+        e("div", { className: "section-kicker" }, "// 03 — " + t.projectsLabel),
+        e("h2", { className: "section-heading" }, t.projectsHeading)
+      ),
+      e("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(330px,1fr))", gap: 20 } },
+        projects.map(p => e("div", { key: p.n, className: "project-card" },
+          e("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 } },
+            e("span", { style: { fontFamily: "'Space Grotesk',sans-serif", fontSize: 34, fontWeight: 700, color: "var(--faint,#5b6675)", lineHeight: 1 } }, p.n),
+            e("div", { style: { textAlign: "right" } },
+              e("div", { style: { fontFamily: "'Space Grotesk',sans-serif", fontSize: 24, fontWeight: 700, color: "var(--accent,#5eead4)", lineHeight: 1 } }, p.metric),
+              e("div", { style: { fontSize: 11, color: "var(--faint,#5b6675)", letterSpacing: ".04em" } }, p.metricLabel)
+            )
+          ),
+          e("h3", { style: { fontFamily: "'Space Grotesk',sans-serif", fontSize: 20, fontWeight: 600, margin: "0 0 10px", color: "var(--text,#e6edf3)" } }, p.name),
+          e("p", { style: { fontSize: 14, color: "var(--dim,#9aa6b6)", lineHeight: 1.7, margin: "0 0 18px", flex: 1 } }, p.blurb),
+          e("div", { style: { display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 18 } },
+            p.tags.map(tg => e("span", { key: tg, className: "pill", style: { fontSize: 11.5, padding: "4px 10px" } }, tg))
+          ),
+          e("div", { style: { display: "flex", gap: 18, fontSize: 13, borderTop: "1px solid var(--border,#232c3a)", paddingTop: 15 } },
+            e("a", { href: p.repo, target: "_blank", rel: "noopener", style: { textDecoration: "none", color: "var(--dim,#9aa6b6)", display: "inline-flex", alignItems: "center", gap: 6 } },
+              e("span", { style: { color: "var(--accent,#5eead4)" } }, "</>"), " ", t.linkCode
+            ),
+            p.demo ? e("a", { href: p.demo, target: "_blank", rel: "noopener", style: { textDecoration: "none", color: "var(--dim,#9aa6b6)", display: "inline-flex", alignItems: "center", gap: 6 } }, "↗ " + t.linkLive) : null
+          )
+        ))
+      )
+    ),
+
+    e("section", { id: "education", "data-sec": "", className: "page" },
+      e("div", { className: "section-title" },
+        e("div", { className: "section-kicker" }, "// 04 — " + t.eduLabel),
+        e("h2", { className: "section-heading" }, t.eduHeading)
+      ),
+      e("div", { className: "timeline" },
+        education.map(ed => e("div", { key: ed.period + ed.degree, className: "timeline-item" },
+          e("span", { className: "timeline-dot" }),
+          e("div", { style: { fontSize: 12, color: "var(--accent,#5eead4)", marginBottom: 4 } }, ed.period),
+          e("div", { style: { fontFamily: "'Space Grotesk',sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text,#e6edf3)" } }, ed.degree),
+          e("div", { style: { fontSize: 13, color: "var(--dim,#9aa6b6)" } }, ed.school)
+        ))
+      )
+    ),
+
+    e("section", { id: "contact", "data-sec": "", className: "page page--tight", style: { textAlign: "center" } },
+      e("div", { className: "section-kicker", style: { marginBottom: 9 } }, "// 05 — " + t.contactLabel),
+      e("h2", { className: "section-heading section-heading--large" }, t.contactHeading),
+      e("p", { style: { fontSize: 15.5, color: "var(--dim,#9aa6b6)", maxWidth: "50ch", margin: "0 auto 34px", lineHeight: 1.75 } }, t.contactP),
+      e("div", { className: "contact-card", style: { textAlign: "left" } },
+        e("div", { className: "terminal-bar" },
+          e("span", { className: "dot dot--red" }),
+          e("span", { className: "dot dot--amber" }),
+          e("span", { className: "dot dot--green" })
+        ),
+        e("div", { style: { padding: "20px 20px", fontSize: 13.5, lineHeight: 2.1 } },
+          termLine("./contact.sh"),
+          e("div", null, e("span", { style: { color: "var(--faint,#5b6675)" } }, "email   "), " ", e("a", { href: "mailto:ojalloh38@gmail.com", style: { color: "var(--accent,#5eead4)", textDecoration: "none" } }, "ojalloh38@gmail.com")),
+          e("div", null, e("span", { style: { color: "var(--faint,#5b6675)" } }, "github  "), " ", e("a", { href: "https://github.com/Oumarjalloh", target: "_blank", rel: "noopener", style: { color: "var(--accent,#5eead4)", textDecoration: "none" } }, "github.com/Oumarjalloh")),
+          e("div", null, e("span", { style: { color: "var(--faint,#5b6675)" } }, "linkedin"), " ", e("a", { href: "https://www.linkedin.com/in/alpha-oumar-diallo-35835a254/", target: "_blank", rel: "noopener", style: { color: "var(--accent,#5eead4)", textDecoration: "none" } }, "linkedin.com/in/alpha-oumar-diallo"))
+        )
+      ),
+      e("a", { href: "mailto:ojalloh38@gmail.com", className: "btn btn--primary", style: { fontSize: 15, padding: "13px 26px", borderRadius: 10 } }, t.contactCta, " ", e("span", null, "→"))
+    ),
+
+    e("footer", { className: "footer" }, t.footer)
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(e(App));
+</script>
+</body>
+</html>
